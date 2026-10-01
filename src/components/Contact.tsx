@@ -151,7 +151,7 @@ function ContactModal({
             ) : (
               <motion.form key="form" onSubmit={submit} noValidate exit={{ opacity: 0, y: -10 }}>
                 <div className="flex items-center gap-3">
-                  <img src="/img/portrait.webp" alt="" className="h-12 w-12 rounded-full object-cover object-[50%_30%] ring-2 ring-accent/40" />
+                  <img src="/img/smile.webp" alt="" className="h-12 w-12 rounded-full object-cover object-[50%_30%] ring-2 ring-accent/40" />
                   <div>
                     <p className="text-sm text-mute">Yassir Choujai</p>
                     <p className="flex items-center gap-1.5 text-xs text-emerald-500">

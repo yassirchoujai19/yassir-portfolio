@@ -140,7 +140,7 @@ export default function Hero({ ready }: { ready: boolean }) {
               <div className="ring-spin absolute -inset-1/2" />
             </div>
             <div className="absolute inset-0 overflow-hidden rounded-[2rem] bg-ink-2">
-              <img src="/img/portrait.webp" alt="Portrait of Yassir Choujai" className="h-full w-full scale-105 object-cover object-[50%_30%]" />
+              <img src="/img/portrait.webp" alt="Portrait of Yassir Choujai" className="h-full w-full scale-105 object-cover object-[50%_35%]" />
               <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-transparent" />
               <div className="absolute inset-x-5 bottom-5 flex items-end justify-between">
                 <div>
