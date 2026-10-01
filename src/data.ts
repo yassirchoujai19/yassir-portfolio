@@ -9,6 +9,8 @@ export const profile = {
   phoneHref: 'tel:+212602240933',
   github: 'https://github.com/yassirchoujai19',
   githubHandle: 'yassirchoujai19',
+  linkedin: 'https://www.linkedin.com/in/yassir-choujai-1227b1308/',
+  medium: 'https://medium.com/@yassirchoujai',
   roles: ['Software Engineer', 'Full-stack Developer', 'Vue & React Engineer', 'Laravel API Builder'],
   summary:
     'Software engineer passionate about building complete web applications — from REST APIs and data models to the interfaces people actually touch. I learn fast, care about clean, tested code, and bring hands-on experience with React, Next.js, Vue, Nuxt and Laravel to deliver products that are reliable and genuinely pleasant to use.',
@@ -16,8 +18,8 @@ export const profile = {
 
 export const stats = [
   { value: 3, suffix: '', label: 'Companies worked with' },
-  { value: 9, suffix: '', label: 'Live projects shipped' },
-  { value: 30, suffix: '+', label: 'Public repositories' },
+  { value: 5, suffix: '', label: 'Live products shipped' },
+  { value: 25, suffix: '+', label: 'Technologies in my toolbox' },
   { value: 4, suffix: '', label: 'Languages spoken' },
 ]
 
@@ -128,46 +130,6 @@ export const projects: Project[] = [
     live: 'https://leave-management-app-sooty.vercel.app',
     repo: gh('Leave-management-app'),
     stack: ['Vue 3', 'Bun', 'Pinia', 'DaisyUI', 'TypeScript'],
-    category: 'Vue',
-  },
-  {
-    title: 'Smart Image Cropper',
-    tagline: 'Social-media ready crops',
-    description: 'Drop an image and instantly get perfectly cropped versions for every major social platform.',
-    image: '/projects/cropper.webp',
-    live: 'https://image-croper-test.vercel.app',
-    repo: gh('image-croper-test'),
-    stack: ['Vue 3', 'Vite', 'Canvas'],
-    category: 'Vue',
-  },
-  {
-    title: 'Pinia Tasks',
-    tagline: 'State-driven task manager',
-    description: 'Task manager with favourites and filters, built to master Pinia stores and the Composition API.',
-    image: '/projects/pinia.webp',
-    live: 'https://pinia-tasks-eight.vercel.app',
-    repo: gh('Pinia-Tasks'),
-    stack: ['Vue 3', 'Pinia'],
-    category: 'Vue',
-  },
-  {
-    title: 'Random Quotes',
-    tagline: 'Daily dose of inspiration',
-    description: 'A playful quote generator with smooth transitions and a glassy gradient UI.',
-    image: '/projects/quotes.webp',
-    live: 'https://random-quote-generator-vuejs.vercel.app',
-    repo: gh('RandomQuoteGenerator-vuejs'),
-    stack: ['Vue 3', 'CSS'],
-    category: 'Vue',
-  },
-  {
-    title: 'Vue To-Do',
-    tagline: 'Lightweight productivity',
-    description: 'A responsive to-do list to add, complete and clear tasks — simple, fast and focused.',
-    image: '/projects/todo.webp',
-    live: 'https://vue-to-do-list-beta.vercel.app',
-    repo: gh('Vue-To-Do-List'),
-    stack: ['Vue', 'JavaScript'],
     category: 'Vue',
   },
 ]

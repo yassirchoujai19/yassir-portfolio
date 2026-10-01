@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { profile } from '../data'
 import { useContact } from './Contact'
 import { ThemeToggle, type useTheme } from './theme'
-import { ease, Magnetic } from './ui'
+import { ease, Magnetic, Socials } from './ui'
 
 export function Preloader({ onDone }: { onDone: () => void }) {
   const [n, setN] = useState(0)
@@ -181,6 +181,9 @@ export function Nav({ themeCtl }: { themeCtl: ReturnType<typeof useTheme> }) {
             >
               Let's talk
             </button>
+            <div className="mt-6 flex justify-center">
+              <Socials size="sm" />
+            </div>
             <p className="mt-4 text-center text-sm text-mute">{profile.email}</p>
           </motion.div>
         )}

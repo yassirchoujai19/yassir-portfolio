@@ -1,8 +1,8 @@
 import { AnimatePresence, motion, useMotionTemplate, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion'
-import { ArrowDownRight, ArrowUpRight, MapPin } from 'lucide-react'
+import { ArrowDownRight, MapPin } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { profile } from '../data'
-import { ease, GithubIcon, Magnetic } from './ui'
+import { ease, Magnetic, Socials } from './ui'
 
 function RoleTicker() {
   const [i, setI] = useState(0)
@@ -108,15 +108,11 @@ export default function Hero({ ready }: { ready: boolean }) {
                 <ArrowDownRight className="h-5 w-5 transition-transform group-hover:rotate-[-45deg]" />
               </a>
             </Magnetic>
-            <Magnetic>
-              <a href={profile.github} target="_blank" rel="noreferrer" className="glass inline-flex items-center gap-2 rounded-full px-7 py-4 font-medium transition hover:border-fg/30">
-                <GithubIcon /> GitHub <ArrowUpRight className="h-4 w-4 opacity-60" />
-              </a>
-            </Magnetic>
-            <span className="inline-flex items-center gap-1.5 text-sm text-mute">
-              <MapPin className="h-4 w-4" /> {profile.location}
-            </span>
+            <Socials />
           </motion.div>
+          <motion.p variants={fadeUp} custom={0.9} initial="hidden" animate={show} className="mt-6 inline-flex items-center gap-1.5 text-sm text-mute">
+            <MapPin className="h-4 w-4" /> {profile.location}
+          </motion.p>
         </motion.div>
 
         <motion.div
@@ -144,7 +140,7 @@ export default function Hero({ ready }: { ready: boolean }) {
               <div className="ring-spin absolute -inset-1/2" />
             </div>
             <div className="absolute inset-0 overflow-hidden rounded-[2rem] bg-ink-2">
-              <img src="/img/portrait.webp" alt="Portrait of Yassir Choujai" className="h-full w-full scale-105 object-cover object-[50%_35%]" />
+              <img src="/img/portrait.webp" alt="Portrait of Yassir Choujai" className="h-full w-full scale-105 object-cover object-[50%_30%]" />
               <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-transparent" />
               <div className="absolute inset-x-5 bottom-5 flex items-end justify-between">
                 <div>

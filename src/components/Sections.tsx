@@ -3,13 +3,16 @@ import { ArrowUpRight, Check, Copy, GraduationCap, Lock, Mail, MessageSquare, Ph
 import { useMemo, useRef, useState } from 'react'
 import { education, experience, languages, marquee, profile, projects, skillGroups, stats, strengths, type Project, type Tech } from '../data'
 import { useContact } from './Contact'
-import { Counter, ease, GithubIcon, Magnetic, Reveal, SectionTitle, SplitText } from './ui'
+import { Counter, ease, GithubIcon, LinkedinIcon, Magnetic, MediumIcon, Reveal, SectionTitle, Socials, SplitText } from './ui'
 
 /* ───────────────────────── About ───────────────────────── */
 
 export function About() {
   const ref = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start end', 'end start'],
+  })
   const y = useTransform(scrollYProgress, [0, 1], ['-8%', '8%'])
   const clip = useTransform(scrollYProgress, [0.05, 0.4], ['inset(18% 10% 18% 10% round 2rem)', 'inset(0% 0% 0% 0% round 2rem)'])
 
@@ -20,14 +23,16 @@ export function About() {
         <div className="grid gap-14 lg:grid-cols-[1fr_1.15fr] lg:gap-20">
           <div ref={ref} className="relative">
             <motion.div style={{ clipPath: clip }} className="relative aspect-[3/4] overflow-hidden rounded-[2rem]">
-              <motion.img style={{ y, scale: 1.18 }} src="/img/graduation.webp" alt="Yassir at graduation in Tangier" className="h-full w-full object-cover object-[50%_40%]" />
+              <motion.img style={{ y, scale: 1.18 }} src="/img/cafe.webp" alt="Yassir Choujai" className="h-full w-full object-cover object-[50%_35%]" />
               <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent" />
             </motion.div>
             <Reveal delay={0.3} className="glass absolute -bottom-6 right-4 flex items-center gap-3 rounded-2xl px-5 py-4 md:-right-6">
-              <GraduationCap className="h-6 w-6 text-accent-2" />
+              <span className="flex h-10 w-16 items-center justify-center rounded-xl bg-white p-1">
+                <img src="/logos/cosmic.png" alt="" className="max-h-full max-w-full object-contain" />
+              </span>
               <div>
-                <p className="text-sm font-medium">Software Development Diploma</p>
-                <p className="text-xs text-mute">CIEL · Class of 2025</p>
+                <p className="text-sm font-medium">Software Engineer</p>
+                <p className="text-xs text-mute">Cosmic Data · since 2025</p>
               </div>
             </Reveal>
           </div>
@@ -43,7 +48,8 @@ export function About() {
             </Reveal>
             <Reveal delay={0.2}>
               <p className="mt-4 text-lg leading-relaxed text-mute">
-                From a clinic management platform and an AI voice-interview app to HR tools, I work across the whole stack — modelling data, designing REST APIs in Laravel, and shipping polished Vue and React front-ends with tests and CI/CD. I care about the details: solid architecture, smooth UX and code the next engineer will thank me for.
+                From a clinic management platform and an AI voice-interview app to HR tools, I work across the whole stack — modelling data, designing REST APIs in Laravel, and shipping polished Vue
+                and React front-ends with tests and CI/CD. I care about the details: solid architecture, smooth UX and code the next engineer will thank me for.
               </p>
             </Reveal>
 
@@ -80,7 +86,10 @@ export function About() {
 
 export function Experience() {
   const ref = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 70%', 'end 60%'] })
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start 70%', 'end 60%'],
+  })
   const h = useSpring(scrollYProgress, { stiffness: 100, damping: 30 })
 
   return (
@@ -247,7 +256,17 @@ export function Projects() {
             <div className="glass inline-flex rounded-full p-1">
               {filters.map((x) => (
                 <button key={x} onClick={() => setF(x)} className="relative rounded-full px-5 py-2 text-sm">
-                  {f === x && <motion.span layoutId="pill" className="absolute inset-0 rounded-full bg-fg" transition={{ type: 'spring', stiffness: 350, damping: 30 }} />}
+                  {f === x && (
+                    <motion.span
+                      layoutId="pill"
+                      className="absolute inset-0 rounded-full bg-fg"
+                      transition={{
+                        type: 'spring',
+                        stiffness: 350,
+                        damping: 30,
+                      }}
+                    />
+                  )}
                   <span className={`relative transition-colors ${f === x ? 'text-ink' : 'text-fg/70'}`}>{x}</span>
                 </button>
               ))}
@@ -260,14 +279,6 @@ export function Projects() {
             <TiltCard key={p.title} p={p} i={i} big={f === 'All' && (i === 0 || (i === list.length - 1 && list.length % 2 === 0))} />
           ))}
         </motion.div>
-
-        <Reveal className="mt-16 text-center">
-          <Magnetic>
-            <a href={profile.github + '?tab=repositories'} target="_blank" rel="noreferrer" className="glass inline-flex items-center gap-2 rounded-full px-7 py-4 transition hover:border-fg/30">
-              <GithubIcon /> Explore all repositories <ArrowUpRight className="h-4 w-4" />
-            </a>
-          </Magnetic>
-        </Reveal>
       </div>
     </section>
   )
@@ -344,31 +355,53 @@ export function Education() {
     <section id="education" className="relative px-4 py-28 md:px-8 md:py-32">
       <div className="mx-auto max-w-7xl">
         <SectionTitle index="05" kicker="Education" title="Always learning." />
-        <div className="divide-y divide-line border-y border-line">
-          {education.map((e, i) => (
-            <Reveal key={e.title} delay={i * 0.05}>
-              <div className="group relative flex flex-col gap-2 overflow-hidden py-8 md:flex-row md:items-center md:justify-between">
-                <span className="absolute inset-0 origin-left scale-x-0 bg-gradient-to-r from-accent/10 to-transparent transition-transform duration-700 group-hover:scale-x-100" />
-                <div className="relative flex items-baseline gap-6">
-                  <span className="font-display text-sm text-mute">{String(i + 1).padStart(2, '0')}</span>
-                  <h3 className="font-display text-2xl font-semibold transition-transform duration-500 group-hover:translate-x-3 md:text-4xl">{e.title}</h3>
-                </div>
-                <div className="relative flex items-center gap-6 pl-12 md:pl-0">
-                  <span className="text-fg/70">{e.school}</span>
-                  <span className="text-sm text-accent-2">{e.period}</span>
+        <div className="grid items-start gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
+          <Reveal className="relative">
+            <div className="group relative aspect-[3/4] overflow-hidden rounded-[2rem]">
+              <img
+                src="/img/graduation.webp"
+                alt="Yassir at his graduation in Tangier"
+                loading="lazy"
+                className="h-full w-full object-cover object-[50%_40%] transition duration-1000 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+              <div className="absolute inset-x-5 bottom-5 flex items-center gap-3 text-white">
+                <GraduationCap className="h-6 w-6 text-accent-2" />
+                <div>
+                  <p className="text-sm font-medium">Software Development Diploma</p>
+                  <p className="text-xs text-white/70">CIEL · Class of 2025</p>
                 </div>
               </div>
+            </div>
+          </Reveal>
+          <div>
+            <div className="divide-y divide-line border-y border-line">
+              {education.map((e, i) => (
+                <Reveal key={e.title} delay={i * 0.05}>
+                  <div className="group relative flex flex-col gap-2 overflow-hidden py-8 md:flex-row md:items-center md:justify-between">
+                    <span className="absolute inset-0 origin-left scale-x-0 bg-gradient-to-r from-accent/10 to-transparent transition-transform duration-700 group-hover:scale-x-100" />
+                    <div className="relative flex items-baseline gap-6">
+                      <span className="font-display text-sm text-mute">{String(i + 1).padStart(2, '0')}</span>
+                      <h3 className="font-display text-2xl font-semibold transition-transform duration-500 group-hover:translate-x-3 md:text-3xl">{e.title}</h3>
+                    </div>
+                    <div className="relative flex items-center gap-6 pl-12 md:pl-0">
+                      <span className="text-fg/70">{e.school}</span>
+                      <span className="text-sm text-accent-2">{e.period}</span>
+                    </div>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+            <Reveal className="mt-10 flex flex-wrap items-center gap-3">
+              <span className="text-sm uppercase tracking-[0.25em] text-mute">I speak</span>
+              {languages.map((l) => (
+                <span key={l} className="glass rounded-full px-4 py-2 text-sm">
+                  {l}
+                </span>
+              ))}
             </Reveal>
-          ))}
+          </div>
         </div>
-        <Reveal className="mt-10 flex flex-wrap items-center gap-3">
-          <span className="text-sm uppercase tracking-[0.25em] text-mute">I speak</span>
-          {languages.map((l) => (
-            <span key={l} className="glass rounded-full px-4 py-2 text-sm">
-              {l}
-            </span>
-          ))}
-        </Reveal>
       </div>
     </section>
   )
@@ -404,8 +437,8 @@ export function Contact() {
           <SplitText text="something great." className="text-gradient" delay={0.15} />
         </h2>
 
-        <div className="mt-16 grid gap-4 md:grid-cols-3">
-          <Reveal>
+        <div className="mt-16 grid gap-4 md:grid-cols-2 lg:grid-cols-6">
+          <Reveal className="lg:col-span-3">
             <button onClick={copy} className="glass group flex w-full items-center justify-between rounded-3xl p-6 text-left transition hover:border-accent/40">
               <span>
                 <span className="flex items-center gap-2 text-sm text-mute">
@@ -416,7 +449,7 @@ export function Contact() {
               {copied ? <Check className="h-5 w-5 shrink-0 text-emerald-400" /> : <Copy className="h-5 w-5 shrink-0 text-mute transition group-hover:text-fg" />}
             </button>
           </Reveal>
-          <Reveal delay={0.08}>
+          <Reveal delay={0.08} className="lg:col-span-3">
             <a href={profile.phoneHref} className="glass group flex items-center justify-between rounded-3xl p-6 transition hover:border-accent/40">
               <span>
                 <span className="flex items-center gap-2 text-sm text-mute">
@@ -427,17 +460,38 @@ export function Contact() {
               <ArrowUpRight className="h-5 w-5 text-mute transition group-hover:rotate-45 group-hover:text-fg" />
             </a>
           </Reveal>
-          <Reveal delay={0.16}>
-            <a href={profile.github} target="_blank" rel="noreferrer" className="glass group flex items-center justify-between rounded-3xl p-6 transition hover:border-accent/40">
-              <span>
-                <span className="flex items-center gap-2 text-sm text-mute">
-                  <GithubIcon className="h-4 w-4" /> GitHub
+          {[
+            {
+              label: 'GitHub',
+              handle: `@${profile.githubHandle}`,
+              href: profile.github,
+              Icon: GithubIcon,
+            },
+            {
+              label: 'LinkedIn',
+              handle: 'Yassir Choujai',
+              href: profile.linkedin,
+              Icon: LinkedinIcon,
+            },
+            {
+              label: 'Medium',
+              handle: '@yassirchoujai',
+              href: profile.medium,
+              Icon: MediumIcon,
+            },
+          ].map(({ label, handle, href, Icon }, i) => (
+            <Reveal key={label} delay={0.16 + i * 0.08} className="lg:col-span-2">
+              <a href={href} target="_blank" rel="noreferrer" className="glass group flex items-center justify-between rounded-3xl p-6 transition hover:border-accent/40">
+                <span>
+                  <span className="flex items-center gap-2 text-sm text-mute">
+                    <Icon className="h-4 w-4" /> {label}
+                  </span>
+                  <span className="mt-2 block font-display text-lg md:text-xl">{handle}</span>
                 </span>
-                <span className="mt-2 block font-display text-lg md:text-xl">@{profile.githubHandle}</span>
-              </span>
-              <ArrowUpRight className="h-5 w-5 text-mute transition group-hover:rotate-45 group-hover:text-fg" />
-            </a>
-          </Reveal>
+                <ArrowUpRight className="h-5 w-5 text-mute transition group-hover:rotate-45 group-hover:text-fg" />
+              </a>
+            </Reveal>
+          ))}
         </div>
 
         <Reveal className="mt-14 flex justify-center">
@@ -454,8 +508,10 @@ export function Contact() {
         </Reveal>
 
         <footer className="mt-28 flex flex-col items-center justify-between gap-4 border-t border-line pt-8 text-sm text-mute md:flex-row">
-          <span>© {new Date().getFullYear()} {profile.name}. Crafted with React & Framer Motion.</span>
-          <span>{profile.location}</span>
+          <span>
+            © {new Date().getFullYear()} {profile.name}. Crafted with React & Framer Motion.
+          </span>
+          <Socials size="sm" />
           <a href="#top" className="transition hover:text-fg">
             Back to top ↑
           </a>
