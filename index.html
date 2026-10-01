@@ -5,10 +5,17 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#07080c" />
+    <script>
+      try {
+        var t = localStorage.getItem('yc-theme')
+        if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+        document.documentElement.dataset.theme = t
+      } catch (e) {}
+    </script>
     <title>Yassir Choujai — Software Engineer</title>
-    <meta name="description" content="Yassir Choujai — front-end focused software engineer from Tangier building fast, reliable and user-friendly web apps with React, Next.js, Vue and Nuxt." />
+    <meta name="description" content="Yassir Choujai — software engineer from Tangier building complete, reliable web products with Laravel, React, Next.js, Vue and Nuxt." />
     <meta property="og:title" content="Yassir Choujai — Software Engineer" />
-    <meta property="og:description" content="Front-end focused software engineer building modern web experiences with React, Next.js, Vue and Nuxt." />
+    <meta property="og:description" content="Software engineer building complete web products — APIs, data and polished interfaces." />
     <meta property="og:image" content="/img/graduation.webp" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

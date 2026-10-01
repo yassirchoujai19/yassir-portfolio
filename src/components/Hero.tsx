@@ -29,9 +29,9 @@ function RoleTicker() {
 }
 
 const badges = [
-  { label: 'Vue / Nuxt', className: '-left-6 top-[18%]', d: 0 },
-  { label: 'React / Next', className: '-right-8 top-[42%]', d: 0.6 },
-  { label: 'TypeScript', className: '-left-10 top-[62%]', d: 1.2 },
+  { label: 'Vue · Nuxt', icon: '/tech/vuejs.svg', className: '-left-6 top-[18%]', d: 0 },
+  { label: 'React · Next', icon: '/tech/react.svg', className: '-right-8 top-[42%]', d: 0.6 },
+  { label: 'Laravel APIs', icon: '/tech/laravel.svg', className: '-left-10 top-[62%]', d: 1.2 },
 ]
 
 export default function Hero({ ready }: { ready: boolean }) {
@@ -71,7 +71,7 @@ export default function Hero({ ready }: { ready: boolean }) {
 
       <div className="relative mx-auto grid w-full max-w-7xl items-center gap-16 lg:grid-cols-[1.25fr_1fr]">
         <motion.div style={{ y: yText, opacity: fade }}>
-          <motion.div variants={fadeUp} custom={0.1} initial="hidden" animate={show} className="glass mb-8 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm text-white/80">
+          <motion.div variants={fadeUp} custom={0.1} initial="hidden" animate={show} className="glass mb-8 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm text-fg/80">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
@@ -92,13 +92,13 @@ export default function Hero({ ready }: { ready: boolean }) {
             </span>
           </h1>
 
-          <motion.p variants={fadeUp} custom={0.55} initial="hidden" animate={show} className="mt-8 text-xl text-white/80 md:text-2xl">
+          <motion.p variants={fadeUp} custom={0.55} initial="hidden" animate={show} className="mt-8 text-xl text-fg/80 md:text-2xl">
             <RoleTicker />
           </motion.p>
 
           <motion.p variants={fadeUp} custom={0.65} initial="hidden" animate={show} className="mt-6 max-w-xl text-base leading-relaxed text-mute md:text-lg">
-            I build fast, reliable and genuinely enjoyable web interfaces — currently crafting front-end experiences at{' '}
-            <span className="text-white">Cosmic Data</span> while studying Software Engineering at <span className="text-white">ENSI</span>.
+            I design and build complete web products — robust APIs, clean data models and interfaces people love to use. Software Engineer at{' '}
+            <span className="text-fg">Cosmic Data</span> and Software Engineering student at <span className="text-fg">ENSI</span>.
           </motion.p>
 
           <motion.div variants={fadeUp} custom={0.8} initial="hidden" animate={show} className="mt-10 flex flex-wrap items-center gap-4">
@@ -109,7 +109,7 @@ export default function Hero({ ready }: { ready: boolean }) {
               </a>
             </Magnetic>
             <Magnetic>
-              <a href={profile.github} target="_blank" rel="noreferrer" className="glass inline-flex items-center gap-2 rounded-full px-7 py-4 font-medium transition hover:border-white/30">
+              <a href={profile.github} target="_blank" rel="noreferrer" className="glass inline-flex items-center gap-2 rounded-full px-7 py-4 font-medium transition hover:border-fg/30">
                 <GithubIcon /> GitHub <ArrowUpRight className="h-4 w-4 opacity-60" />
               </a>
             </Magnetic>
@@ -149,7 +149,7 @@ export default function Hero({ ready }: { ready: boolean }) {
               <div className="absolute inset-x-5 bottom-5 flex items-end justify-between">
                 <div>
                   <p className="font-display text-xl font-semibold">{profile.name}</p>
-                  <p className="text-sm text-white/60">{profile.role}</p>
+                  <p className="text-sm text-fg/60">{profile.role}</p>
                 </div>
                 <span className="glass rounded-full px-3 py-1 text-xs">2025 — now</span>
               </div>
@@ -157,11 +157,12 @@ export default function Hero({ ready }: { ready: boolean }) {
             {badges.map((b) => (
               <motion.div
                 key={b.label}
-                className={`glass absolute hidden rounded-2xl px-4 py-2 sm:block text-sm font-medium shadow-xl shadow-black/40 ${b.className}`}
+                className={`glass absolute hidden items-center gap-2 rounded-2xl px-4 py-2 sm:flex text-sm font-medium shadow-xl shadow-black/40 ${b.className}`}
                 animate={{ y: [0, -12, 0] }}
                 transition={{ duration: 4, repeat: Infinity, delay: b.d, ease: 'easeInOut' }}
                 style={{ translateZ: 60 }}
               >
+                <img src={b.icon} alt="" className="h-4 w-4" />
                 {b.label}
               </motion.div>
             ))}

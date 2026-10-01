@@ -2,6 +2,8 @@ import { AnimatePresence, motion, useMotionValue, useScroll, useSpring } from 'f
 import { Menu, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { profile } from '../data'
+import { useContact } from './Contact'
+import { ThemeToggle, type useTheme } from './theme'
 import { ease, Magnetic } from './ui'
 
 export function Preloader({ onDone }: { onDone: () => void }) {
@@ -72,9 +74,9 @@ export function Cursor() {
   if (!enabled) return null
   return (
     <>
-      <motion.div className="pointer-events-none fixed left-0 top-0 z-[90] h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white" style={{ x, y }} />
+      <motion.div className="pointer-events-none fixed left-0 top-0 z-[90] h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white mix-blend-difference" style={{ x, y }} />
       <motion.div
-        className="pointer-events-none fixed left-0 top-0 z-[90] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/40 mix-blend-difference"
+        className="pointer-events-none fixed left-0 top-0 z-[90] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/50 mix-blend-difference"
         style={{ x: sx, y: sy }}
         animate={{ width: hover ? 64 : 34, height: hover ? 64 : 34, backgroundColor: hover ? 'rgba(255,255,255,1)' : 'rgba(255,255,255,0)' }}
         transition={{ duration: 0.25 }}
@@ -97,7 +99,8 @@ const links = [
   ['Contact', '#contact'],
 ]
 
-export function Nav() {
+export function Nav({ themeCtl }: { themeCtl: ReturnType<typeof useTheme> }) {
+  const contact = useContact()
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   useEffect(() => {
@@ -124,23 +127,24 @@ export function Nav() {
           <ul className="hidden items-center gap-1 md:flex">
             {links.map(([l, h]) => (
               <li key={h}>
-                <a href={h} className="group relative block overflow-hidden rounded-full px-4 py-2 text-sm text-white/70 transition hover:text-white">
+                <a href={h} className="group relative block overflow-hidden rounded-full px-4 py-2 text-sm text-fg/70 transition hover:text-fg">
                   <span className="block transition-transform duration-300 group-hover:-translate-y-[130%]">{l}</span>
                   <span className="absolute inset-x-4 top-2 block translate-y-[130%] text-accent-2 transition-transform duration-300 group-hover:translate-y-0">{l}</span>
                 </a>
               </li>
             ))}
           </ul>
-          <div className="hidden md:block">
+          <div className="flex items-center gap-3">
+            <ThemeToggle {...themeCtl} />
             <Magnetic>
-              <a href={`mailto:${profile.email}`} className="rounded-full bg-white px-5 py-2.5 text-sm font-medium text-ink transition hover:bg-accent-2">
+              <button onClick={() => contact.open()} className="rounded-full bg-fg px-5 py-2.5 text-sm font-medium text-ink transition hover:bg-accent-2 hover:text-white">
                 Let's talk
-              </a>
+              </button>
             </Magnetic>
+            <button className="md:hidden" onClick={() => setOpen(true)} aria-label="Open menu">
+              <Menu />
+            </button>
           </div>
-          <button className="md:hidden" onClick={() => setOpen(true)} aria-label="Open menu">
-            <Menu />
-          </button>
         </nav>
       </motion.header>
 
@@ -168,9 +172,16 @@ export function Nav() {
                 </motion.li>
               ))}
             </ul>
-            <a href={`mailto:${profile.email}`} className="mt-auto text-mute">
-              {profile.email}
-            </a>
+            <button
+              onClick={() => {
+                setOpen(false)
+                contact.open()
+              }}
+              className="mt-auto rounded-full bg-gradient-to-r from-accent to-accent-2 px-6 py-4 font-medium text-white"
+            >
+              Let's talk
+            </button>
+            <p className="mt-4 text-center text-sm text-mute">{profile.email}</p>
           </motion.div>
         )}
       </AnimatePresence>

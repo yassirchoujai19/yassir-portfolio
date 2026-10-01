@@ -1,7 +1,8 @@
 import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion'
-import { ArrowUpRight, Check, Copy, GraduationCap, Mail, Phone, Sparkles } from 'lucide-react'
+import { ArrowUpRight, Check, Copy, GraduationCap, Lock, Mail, MessageSquare, Phone, Sparkles } from 'lucide-react'
 import { useMemo, useRef, useState } from 'react'
-import { education, experience, languages, marquee, profile, projects, skillGroups, stats, strengths, type Project } from '../data'
+import { education, experience, languages, marquee, profile, projects, skillGroups, stats, strengths, type Project, type Tech } from '../data'
+import { useContact } from './Contact'
 import { Counter, ease, GithubIcon, Magnetic, Reveal, SectionTitle, SplitText } from './ui'
 
 /* ───────────────────────── About ───────────────────────── */
@@ -15,7 +16,7 @@ export function About() {
   return (
     <section id="about" className="relative px-4 py-28 md:px-8 md:py-40">
       <div className="mx-auto max-w-7xl">
-        <SectionTitle index="01" kicker="About me" title="Curious mind, clean interfaces." />
+        <SectionTitle index="01" kicker="About me" title="Curious mind, complete products." />
         <div className="grid gap-14 lg:grid-cols-[1fr_1.15fr] lg:gap-20">
           <div ref={ref} className="relative">
             <motion.div style={{ clipPath: clip }} className="relative aspect-[3/4] overflow-hidden rounded-[2rem]">
@@ -33,7 +34,7 @@ export function About() {
 
           <div className="flex flex-col justify-center">
             <Reveal>
-              <p className="font-display text-2xl leading-snug text-white/90 md:text-3xl">
+              <p className="font-display text-2xl leading-snug text-fg/90 md:text-3xl">
                 I'm <span className="text-gradient font-semibold">Yassir</span>, a software engineer from Tangier who loves turning ideas into fast, polished products.
               </p>
             </Reveal>
@@ -42,7 +43,7 @@ export function About() {
             </Reveal>
             <Reveal delay={0.2}>
               <p className="mt-4 text-lg leading-relaxed text-mute">
-                From AI-powered voice interviews to HR dashboards, I care about the details that make an interface feel effortless — smooth motion, solid state management and code that the next developer will thank you for.
+                From a clinic management platform and an AI voice-interview app to HR tools, I work across the whole stack — modelling data, designing REST APIs in Laravel, and shipping polished Vue and React front-ends with tests and CI/CD. I care about the details: solid architecture, smooth UX and code the next engineer will thank me for.
               </p>
             </Reveal>
 
@@ -62,7 +63,7 @@ export function About() {
             <Reveal delay={0.2}>
               <div className="mt-10 flex flex-wrap gap-2">
                 {strengths.map((s) => (
-                  <span key={s} className="inline-flex items-center gap-1.5 rounded-full border border-line px-4 py-2 text-sm text-white/80">
+                  <span key={s} className="inline-flex items-center gap-1.5 rounded-full border border-line px-4 py-2 text-sm text-fg/80">
                     <Sparkles className="h-3.5 w-3.5 text-accent-2" /> {s}
                   </span>
                 ))}
@@ -110,15 +111,23 @@ export function Experience() {
 
                 <Reveal delay={0.1} className={i % 2 ? 'md:order-1 md:text-right' : ''}>
                   <div className="glass group rounded-3xl p-7 transition duration-500 hover:-translate-y-1 hover:border-accent/40">
-                    <div className={`flex flex-wrap items-center gap-3 ${i % 2 ? 'md:justify-end' : ''}`}>
+                    <div className={`flex flex-wrap items-center gap-4 ${i % 2 ? 'md:flex-row-reverse' : ''}`}>
+                      <a
+                        href={e.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex h-14 w-24 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-white p-1.5 shadow-lg shadow-black/10 ring-1 ring-line transition duration-500 group-hover:scale-105"
+                      >
+                        <img src={e.logo} alt={`${e.company} logo`} className="max-h-full max-w-full rounded-lg object-contain" loading="lazy" />
+                      </a>
                       <h3 className="font-display text-2xl font-semibold md:text-3xl">{e.company}</h3>
                       {e.current && <span className="rounded-full bg-emerald-400/10 px-3 py-1 text-xs text-emerald-300">Current</span>}
                     </div>
-                    <p className="mt-1 text-white/70">{e.role}</p>
+                    <p className="mt-1 text-fg/70">{e.role}</p>
                     <p className="mt-4 leading-relaxed text-mute">{e.text}</p>
                     <div className={`mt-5 flex flex-wrap gap-2 ${i % 2 ? 'md:justify-end' : ''}`}>
                       {e.tags.map((t) => (
-                        <span key={t} className="rounded-full bg-white/5 px-3 py-1 text-xs text-white/70">
+                        <span key={t} className="rounded-full bg-fg/5 px-3 py-1 text-xs text-fg/70">
                           {t}
                         </span>
                       ))}
@@ -180,7 +189,7 @@ function TiltCard({ p, i, big }: { p: Project; i: number; big?: boolean }) {
           <div className={`relative overflow-hidden ${big ? 'aspect-[16/10]' : 'aspect-[16/10]'}`}>
             <img src={p.image} alt={`${p.title} screenshot`} loading="lazy" className="shot h-full w-full object-cover" />
             <div className="absolute inset-0 flex items-center justify-center bg-ink/50 opacity-0 backdrop-blur-[2px] transition duration-500 group-hover:opacity-100">
-              <span className="flex h-24 w-24 scale-50 items-center justify-center rounded-full bg-white text-sm font-semibold text-ink transition duration-500 group-hover:scale-100">
+              <span className="flex h-24 w-24 scale-50 items-center justify-center rounded-full bg-fg text-sm font-semibold text-ink transition duration-500 group-hover:scale-100">
                 Visit <ArrowUpRight className="h-4 w-4" />
               </span>
             </div>
@@ -194,21 +203,27 @@ function TiltCard({ p, i, big }: { p: Project; i: number; big?: boolean }) {
           </div>
           <h3 className={`mt-3 font-display font-semibold tracking-tight ${big ? 'text-3xl md:text-5xl' : 'text-2xl md:text-3xl'}`}>{p.title}</h3>
           <p className="mt-3 leading-relaxed text-mute">{p.description}</p>
-          {p.note && <p className="mt-3 rounded-xl bg-white/5 px-3 py-2 font-mono text-xs text-white/70">{p.note}</p>}
+          {p.note && <p className="mt-3 rounded-xl bg-fg/5 px-3 py-2 font-mono text-xs text-fg/70">{p.note}</p>}
           <div className="mt-5 flex flex-wrap gap-2">
             {p.stack.map((s) => (
-              <span key={s} className="rounded-full border border-line px-3 py-1 text-xs text-white/70">
+              <span key={s} className="rounded-full border border-line px-3 py-1 text-xs text-fg/70">
                 {s}
               </span>
             ))}
           </div>
           <div className="mt-6 flex gap-3">
-            <a href={p.live} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 rounded-full bg-white px-5 py-2.5 text-sm font-medium text-ink transition hover:bg-accent-2">
+            <a href={p.live} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 rounded-full bg-fg px-5 py-2.5 text-sm font-medium text-ink transition hover:bg-accent-2">
               Live demo <ArrowUpRight className="h-4 w-4" />
             </a>
-            <a href={p.repo} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 rounded-full border border-line px-5 py-2.5 text-sm transition hover:border-white/40">
-              <GithubIcon className="h-4 w-4" /> Code
-            </a>
+            {p.repo ? (
+              <a href={p.repo} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 rounded-full border border-line px-5 py-2.5 text-sm transition hover:border-fg/40">
+                <GithubIcon className="h-4 w-4" /> Code
+              </a>
+            ) : (
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-line px-5 py-2.5 text-sm text-mute" title="Team repository — private">
+                <Lock className="h-3.5 w-3.5" /> Private repo
+              </span>
+            )}
           </div>
         </div>
       </motion.div>
@@ -232,8 +247,8 @@ export function Projects() {
             <div className="glass inline-flex rounded-full p-1">
               {filters.map((x) => (
                 <button key={x} onClick={() => setF(x)} className="relative rounded-full px-5 py-2 text-sm">
-                  {f === x && <motion.span layoutId="pill" className="absolute inset-0 rounded-full bg-white" transition={{ type: 'spring', stiffness: 350, damping: 30 }} />}
-                  <span className={`relative transition-colors ${f === x ? 'text-ink' : 'text-white/70'}`}>{x}</span>
+                  {f === x && <motion.span layoutId="pill" className="absolute inset-0 rounded-full bg-fg" transition={{ type: 'spring', stiffness: 350, damping: 30 }} />}
+                  <span className={`relative transition-colors ${f === x ? 'text-ink' : 'text-fg/70'}`}>{x}</span>
                 </button>
               ))}
             </div>
@@ -248,7 +263,7 @@ export function Projects() {
 
         <Reveal className="mt-16 text-center">
           <Magnetic>
-            <a href={profile.github + '?tab=repositories'} target="_blank" rel="noreferrer" className="glass inline-flex items-center gap-2 rounded-full px-7 py-4 transition hover:border-white/30">
+            <a href={profile.github + '?tab=repositories'} target="_blank" rel="noreferrer" className="glass inline-flex items-center gap-2 rounded-full px-7 py-4 transition hover:border-fg/30">
               <GithubIcon /> Explore all repositories <ArrowUpRight className="h-4 w-4" />
             </a>
           </Magnetic>
@@ -260,15 +275,21 @@ export function Projects() {
 
 /* ───────────────────────── Skills ───────────────────────── */
 
-function MarqueeRow({ items, reverse }: { items: string[]; reverse?: boolean }) {
+export function TechIcon({ tech, className = 'h-6 w-6' }: { tech: Tech; className?: string }) {
+  if (!tech.icon) return <span className={`${className} rounded-md bg-gradient-to-br from-accent to-accent-2`} />
+  return <img src={tech.icon} alt="" loading="lazy" className={`${className} object-contain ${tech.invert ? 'dark:invert' : ''}`} />
+}
+
+function MarqueeRow({ items, reverse }: { items: Tech[]; reverse?: boolean }) {
   const doubled = [...items, ...items]
   return (
     <div className="flex overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_12%,black_88%,transparent)]">
       <div className={`flex shrink-0 gap-4 pr-4 ${reverse ? 'marquee-rev' : 'marquee'}`}>
         {doubled.map((t, i) => (
-          <span key={i} className="whitespace-nowrap font-display text-4xl font-semibold md:text-6xl">
-            <span className={i % 2 ? 'text-outline' : 'text-white/90'}>{t}</span>
-            <span className="mx-4 text-accent-2">✦</span>
+          <span key={i} className="flex items-center whitespace-nowrap font-display text-4xl font-semibold md:text-6xl">
+            <TechIcon tech={t} className="mr-4 h-9 w-9 md:h-12 md:w-12" />
+            <span className={i % 2 ? 'text-outline' : 'text-fg/90'}>{t.name}</span>
+            <span className="mx-6 text-accent-2">✦</span>
           </span>
         ))}
       </div>
@@ -294,15 +315,17 @@ export function Skills() {
               <ul className="mt-5 space-y-3">
                 {g.items.map((s, si) => (
                   <motion.li
-                    key={s}
+                    key={s.name}
                     initial={{ opacity: 0, x: -16 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.15 + si * 0.06, ease }}
-                    className="flex items-center gap-3 text-white/85"
+                    className="group/item flex items-center gap-3 text-fg/85"
                   >
-                    <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-r from-accent to-accent-2" />
-                    {s}
+                    <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-line bg-ink/60 transition group-hover/item:-rotate-6 group-hover/item:scale-110 group-hover/item:border-accent/40">
+                      <TechIcon tech={s} className="h-5 w-5" />
+                    </span>
+                    {s.name}
                   </motion.li>
                 ))}
               </ul>
@@ -331,7 +354,7 @@ export function Education() {
                   <h3 className="font-display text-2xl font-semibold transition-transform duration-500 group-hover:translate-x-3 md:text-4xl">{e.title}</h3>
                 </div>
                 <div className="relative flex items-center gap-6 pl-12 md:pl-0">
-                  <span className="text-white/70">{e.school}</span>
+                  <span className="text-fg/70">{e.school}</span>
                   <span className="text-sm text-accent-2">{e.period}</span>
                 </div>
               </div>
@@ -354,6 +377,7 @@ export function Education() {
 /* ───────────────────────── Contact ───────────────────────── */
 
 export function Contact() {
+  const contact = useContact()
   const [copied, setCopied] = useState(false)
   const copy = async () => {
     try {
@@ -389,7 +413,7 @@ export function Contact() {
                 </span>
                 <span className="mt-2 block break-all font-display text-lg md:text-xl">{profile.email}</span>
               </span>
-              {copied ? <Check className="h-5 w-5 shrink-0 text-emerald-400" /> : <Copy className="h-5 w-5 shrink-0 text-mute transition group-hover:text-white" />}
+              {copied ? <Check className="h-5 w-5 shrink-0 text-emerald-400" /> : <Copy className="h-5 w-5 shrink-0 text-mute transition group-hover:text-fg" />}
             </button>
           </Reveal>
           <Reveal delay={0.08}>
@@ -400,7 +424,7 @@ export function Contact() {
                 </span>
                 <span className="mt-2 block font-display text-lg md:text-xl">{profile.phone}</span>
               </span>
-              <ArrowUpRight className="h-5 w-5 text-mute transition group-hover:rotate-45 group-hover:text-white" />
+              <ArrowUpRight className="h-5 w-5 text-mute transition group-hover:rotate-45 group-hover:text-fg" />
             </a>
           </Reveal>
           <Reveal delay={0.16}>
@@ -411,28 +435,28 @@ export function Contact() {
                 </span>
                 <span className="mt-2 block font-display text-lg md:text-xl">@{profile.githubHandle}</span>
               </span>
-              <ArrowUpRight className="h-5 w-5 text-mute transition group-hover:rotate-45 group-hover:text-white" />
+              <ArrowUpRight className="h-5 w-5 text-mute transition group-hover:rotate-45 group-hover:text-fg" />
             </a>
           </Reveal>
         </div>
 
         <Reveal className="mt-14 flex justify-center">
           <Magnetic strength={0.5}>
-            <a
-              href={`mailto:${profile.email}?subject=Hello%20Yassir`}
-              className="flex h-40 w-40 items-center justify-center rounded-full bg-gradient-to-br from-accent to-accent-2 text-center font-display text-lg font-semibold shadow-2xl shadow-accent/40 transition-transform hover:scale-105 md:h-48 md:w-48"
+            <button
+              onClick={() => contact.open('Just saying hi')}
+              className="group relative flex h-40 w-40 flex-col items-center justify-center gap-1 rounded-full bg-gradient-to-br from-accent to-accent-2 text-center font-display text-lg font-semibold text-white shadow-2xl shadow-accent/40 transition-transform hover:scale-105 md:h-48 md:w-48"
             >
-              Say hello
-              <br />
-              👋
-            </a>
+              <span className="absolute inset-0 animate-ping rounded-full bg-accent/30 [animation-duration:2.5s]" />
+              <MessageSquare className="relative h-6 w-6 transition-transform group-hover:-rotate-12" />
+              <span className="relative">Say hello</span>
+            </button>
           </Magnetic>
         </Reveal>
 
         <footer className="mt-28 flex flex-col items-center justify-between gap-4 border-t border-line pt-8 text-sm text-mute md:flex-row">
           <span>© {new Date().getFullYear()} {profile.name}. Crafted with React & Framer Motion.</span>
           <span>{profile.location}</span>
-          <a href="#top" className="transition hover:text-white">
+          <a href="#top" className="transition hover:text-fg">
             Back to top ↑
           </a>
         </footer>
