@@ -1,4 +1,5 @@
 # Yassir Choujai — Portfolio
+Link : https://yassir-choujai.vercel.app/
 
 Personal portfolio built with React, TypeScript, Vite, Tailwind CSS v4, Framer Motion and Lenis.
 
